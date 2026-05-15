@@ -2,7 +2,7 @@
 <odoo>
     <record id="group_invoice_authorizer" model="res.groups">
         <field name="name">Usuario autorizador facturas</field>
-        <field name="category_id" ref="base.module_category_accounting_accounting"/>
+        <field name="category_id" ref="account.module_category_accounting_accounting"/>
         <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
     </record>
 </odoo>
