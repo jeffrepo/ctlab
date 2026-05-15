@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_form_overdue_authorization" model="ir.ui.view">
+        <field name="name">account.move.form.overdue.authorization</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_authorize_overdue_invoice"
+                        string="Autorizar"
+                        type="object"
+                        class="btn-primary"
+                        groups="account_invoice_overdue_authorization.group_invoice_authorizer"
+                        invisible="state != 'draft' or not overdue_authorization_required or overdue_authorized"/>
+            </xpath>
+            <xpath expr="//sheet" position="inside">
+                <group invisible="1">
+                    <field name="overdue_authorization_required"/>
+                    <field name="overdue_authorized"/>
+                    <field name="overdue_authorized_by_id"/>
+                    <field name="overdue_authorized_date"/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <div class="alert alert-warning" role="alert"
+                     invisible="not overdue_authorization_required or overdue_authorized">
+                    El cliente tiene facturas vencidas sin pagar. Esta factura requiere autorización antes de confirmarse.
+                </div>
+                <div class="alert alert-success" role="alert"
+                     invisible="not overdue_authorized">
+                    Factura autorizada para confirmación por vencidos.
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
